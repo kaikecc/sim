@@ -23,6 +23,16 @@ function setup() {
 	
 }
 function draw() {
+	// start
+	// obtain d, l of yarn texture, and W_matrix (R,G,B) of yarn texture
+	// estabilish of loop texture matrix S[8*d][4*d], the initial value of S[x][y] is (0,0,0)
+	// According to the order region 1 to 6, executes x,y
+	// Determine the x,y whether meet the current regional conditions
+	// According to the region formula to calculate S[x][y]
+	// S[x][y] is re assigned to new value according to the selected brightness variation curve
+	// end
+
+	
 
 }
 
@@ -97,6 +107,20 @@ function S2_region(x,y,d,n,l){
 	}
 
 function S3_region(x,y,d,n,l){
-	
 
+	radix = math.sqrt((2*d - x)*(2*d - x) + (y - 6*d)*(y - 6*d))
+
+	if(x > 0 & x <= 2*d & y > 6*d & y <= 8*d){
+		if(d < radix & radix <= 2*d){
+			i = (PI*d + 4*d + 2*d * math.atan((y - 6*d)/(2*d - x))) - n * l;
+			j = radix - d;
+			return [i,j];
+		}
+		else{
+			return [0,0];
+		}
+	}
+	else{
+		return [0,0];
+	}
 }
