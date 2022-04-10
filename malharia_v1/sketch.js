@@ -68,10 +68,11 @@ function S_texture(_d, _x, _y){
 // different fragments.
 
 function S1_region(x,y,d,n,l){
-	radix = math.sqrt(x*x + (2*d - y)*(2*d - y))
+
+	radix = math.sqrt(x*x + (2*d - y)*(2*d - y));
 	
 	if (x > 0 & x <= 2*d & y > 0 & y <= 2*d){
-		if (d < radix & radix <= 2*d){
+		if (radix > d & radix <= 2*d){
 			// n belongs to natural numbers
 			i = (2*d * math.atan(x / (2*d - y))) - n * l;
 			j = 2*d - radix;
@@ -88,8 +89,6 @@ function S1_region(x,y,d,n,l){
 }
 
 function S2_region(x,y,d,n,l){
-
-
 
 	if(x > 0 & x <= 2*d & y > 2*d & y <= 6*d){
 		if (x > (6*d - y)/4 & x <= (10*d - y)/4){
@@ -111,9 +110,65 @@ function S3_region(x,y,d,n,l){
 	radix = math.sqrt((2*d - x)*(2*d - x) + (y - 6*d)*(y - 6*d))
 
 	if(x > 0 & x <= 2*d & y > 6*d & y <= 8*d){
-		if(d < radix & radix <= 2*d){
+		if(radix > d & radix <= 2*d){
 			i = (PI*d + 4*d + 2*d * math.atan((y - 6*d)/(2*d - x))) - n * l;
 			j = radix - d;
+			return [i,j];
+		}
+		else{
+			return [0,0];
+		}
+	}
+	else{
+		return [0,0];
+	}
+}
+
+function S4_region(x,y,d,n,l){
+	radix = math.sqrt((x - 2*d)*(x - 2*d) + (y - 6*d)*(y - 6*d))
+	if(x > 2*d & x <= 4*d & y > 6*d & y <= 8*d){
+		if(radix < d & radix <= 2*d){
+			i = (2*PI*d + 4*d + 2*d * math.atan((x - 2*d)/(y - 6*d))) - n * l;
+			j = radix - d;
+			return [i,j];
+		}
+		else{
+			return [0,0];
+		}
+
+	}
+	else{
+		return [0,0];
+	}
+}
+
+function S5_region(x,y,d,n,l){
+
+	if(x > 2*d & x <= 4*d & y > 2*d & y <= 6*d){
+
+		if(x > (6*d + y)/4 & x <= (10*d + y)/4){
+			i = 3*PI*d + 4*d + 6*d - y - n * l; 
+			j = x - (6*d + y)/4;
+			return [i,j];
+
+		}
+		else{
+			return [0,0];
+		}
+	}
+	else{
+		return [0,0];
+	}	
+}
+
+function S6_region(x,y,d,n,l){
+	radix = math.sqrt((4*d - x)*(4*d - x) + (2*d - y)*(2*d - y));
+
+	if(x > 2*d & x <= 4*d & y > 0 & y <= 2*d){
+
+		if(radix > d & radix <= 2*d){
+			i = 3*PI*d + 8*d + 2*d * math.atan((2*d - y)/(4*d - x));
+			j = 2*d - radix;
 			return [i,j];
 		}
 		else{
